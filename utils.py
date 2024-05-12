@@ -36,7 +36,7 @@ def add_a_note():
     try:
         user.add_data(date, category, amount, description)
         print('Запись произведена')
-    except Exception:  # Добраьотать обработку ошибок
+    except Exception:
         print('что то пошло не так!')
 
 
@@ -111,7 +111,6 @@ def editing_post_in_note():
                         search1 = int(input('Укажите номер редактируемой операции:\n'))
                         changes = int(input('Что изменить? 1-Дата, 2-категория,3-сумма,4-Описание\n'))
                         search_value = ['Дата', 'Категория', 'Сумма', 'Описание']
-                        # value = input('На что меняем?\n')
                         try:
                             user.editing_post(False, search1, 'Категория', search_value[changes - 1],
                                               search_value_in[search - 1])

@@ -1,12 +1,7 @@
 import json
 import os
-import datetime
 import time
 from json import JSONDecodeError
-
-
-# current_time = datetime.datetime.now().time().strftime("%H:%M:%S")
-# print(current_time)
 
 
 class Wallet:
@@ -18,10 +13,8 @@ class Wallet:
         if os.stat("wallet.json").st_size != 0 and os.path.exists("wallet.json"):
             with open('wallet.json', encoding='utf8') as f:
                 data = json.load(f)
-                # data["values"] += list(a_dict)
                 data.append({
                     'Дата': date,
-                    # 'Время': self.current_time,
                     'Категория': category,
                     'Сумма': amount,
                     'Описание': description,
@@ -32,20 +25,18 @@ class Wallet:
             with open('wallet.json', 'w', encoding='utf8') as file:
                 self.data_first.append({
                     'Дата': date,
-                    # 'Время': self.current_time,
                     'Категория': category,
                     'Сумма': amount,
                     'Описание': description,
                 })
                 json.dump(self.data_first, file, indent=2, ensure_ascii=False)
 
-    def card_balance(self):
+    def card_balance(self) -> list:
         '''Показать текущий баланс, а также отдельно доходы и расходы'''
         try:
             with open('wallet.json') as f:
                 res = 0
                 buying, selling = 0, 0
-                result = []
                 data = json.load(f)
                 if len(data) > 0:
                     for i in data:
@@ -66,7 +57,7 @@ class Wallet:
             rez = 'Ваш баланс: 0 руб'
             return rez
 
-    def card_search(self, field, search_value):
+    def card_search(self, field, search_value) -> list:
         '''Поиск по записям: Поиск записей по категории, дате или сумме'''
         with open('wallet.json') as f:
             result = []
@@ -82,9 +73,7 @@ class Wallet:
         if flag:
             with open('wallet.json') as f:
                 data = json.load(f)
-                # for item in data:
                 del data[elem - 1]
-            # print(data[elem])
         else:
             with open('wallet.json') as f:
                 data = json.load(f)
@@ -107,28 +96,19 @@ class Wallet:
                     except ValueError:
                         print('Неверный формат!')
                 elif category == 'Категория':
-                    li = ['покупка', 'продажа']
                     if data[a[elem - 1]][category] == 'покупка':
                         data[a[elem - 1]][category] = 'продажа'
                     else:
                         data[a[elem - 1]][category] = 'покупка'
-                    # try:
-                    #     if value in li:
-                    #         data[a[elem - 1]][category] = value
-                    #     else:
-                    #         raise Exception("File is empty")
-                    # except Exception:
-                    #     print('Неверный формат!')
                 else:
                     data[a[elem - 1]][category] = value
         with open('wallet.json', 'w', encoding='utf8') as file:
             json.dump(data, file, indent=2, ensure_ascii=False)
 
-    def all_list(self):
+    def all_list(self) -> list:
         with open('wallet.json') as f:
             try:
                 data = json.load(f)
                 return data
             except JSONDecodeError:
                 return None
-
