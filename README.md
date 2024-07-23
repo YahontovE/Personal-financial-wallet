@@ -21,7 +21,7 @@ ___
   
   В терминале ввести команду:
   ```
-  git clone https://github.com/YahontovE/Habits.git
+  git clone https://github.com/YahontovE/Personal-financial-wallet.git
 * Установить вирутальное окружение
 
   В терминале ввести команду:
